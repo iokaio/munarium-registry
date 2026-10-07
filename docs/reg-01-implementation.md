@@ -27,8 +27,8 @@ Scope: candidate modules, tests/example, pinned dependencies and notices, vendor
 and their documentation; corresponding new contract/checker files in the hub. The existing
 activation trait, hub foundation candidate, foundation code, operational trust, signing
 configuration and release settings remain unchanged. Limit: this local implementation and
-validation session, at most two hours, no paid test environment. Protected CI/contributor
-documentation edits require the repository's explicit maintainer authorization.
+validation session, at most two hours, no paid test environment. The maintainer subsequently
+authorized the [bounded CI and contributor-documentation repairs](reg-01-maintainer-changes.md).
 
 The diff exceeds 500 non-generated lines because signature parsing, manifest validation,
 trust admission, immutable storage and refusal tests form one verifiable boundary. Review
@@ -128,8 +128,9 @@ the authorized retry succeeded. Full offline dependency metadata initially faile
 two target-specific crates were absent; `cargo fetch --locked` populated the cache.
 These failures are not relabeled as successful first runs.
 
-Gitleaks was unavailable in the inspected local environment; no secret scan or hosted CI
-pass is claimed.
+Gitleaks was initially unavailable. Subsequent hosted scans reported the public signed
+fixtures; the [authorized repair record](reg-01-maintainer-changes.md) documents the exact
+exceptions and passing local directory/history scans. Hosted CI is verified separately.
 The Python verifier and Rust consumer agree on the fixed candidate, not on all possible
 malformed Ed25519 points or a qualified service deployment. No independent human review
 or formal contract disposition is claimed.

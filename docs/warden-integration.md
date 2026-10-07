@@ -113,9 +113,9 @@ Temporary exported checkouts were removed by the probe's scoped cleanup. Only re
 Cargo caches and `target/warden-interop/` build output remain. Formal ADR acceptance,
 service/transport integration and Stage 1 composition gates remain open.
 
-Gitleaks remains unavailable locally; no secret-scan or hosted CI pass is claimed.
-The [prepared build-support edits](reg-01-maintainer-changes.md) remain unapplied:
-automatic approval review rejected the protected workflow change pending specific
-maintainer authorization. Without its fetch step, a clean CI runner lacks the crate cache
-needed by the existing offline build. The pending approval covers only that cache preparation
-and obsolete contributor descriptions, not permissions, checks or release authority.
+Gitleaks was initially unavailable. Hosted CI then exposed the missing dependency-fetch
+step and 31 JWT-rule matches against the public signed-manifest fixtures. The maintainer
+subsequently authorized the [build-support repairs](reg-01-maintainer-changes.md):
+locked cache preparation, exact fixture exceptions and aligned contributor descriptions.
+Local directory/history scans and all eight scanner boundary checks now pass.
+The original failures remain recorded; hosted results must be checked at the updated PR heads.

@@ -11,7 +11,7 @@ section 7 covers Registry. A plan or a compiling interface does not establish a 
 | [REG-01 readiness](reg-01-readiness.md) | Pinned proposal inputs, blocking decisions, proposed acceptance cases and local scaffold observations |
 | [REG-01 implementation](reg-01-implementation.md) | Candidate contract pin, trusted-host API, local recipe, tests and remaining integration limits |
 | [Warden integration review](warden-integration.md) | Pulled revisions, receiving-side verification, interoperability recipe and remaining boundaries |
-| [REG-01 maintainer changes](reg-01-maintainer-changes.md) | Exact protected CI and contributor-description edits awaiting specific authorization |
+| [REG-01 build support](reg-01-maintainer-changes.md) | Authorized CI cache preparation, exact fixture exceptions and scanner boundary checks |
 | [Validation](validation.md) | Local build recipe, automatic checks and future acceptance specifications |
 
 The [source](../src/lib.rs) includes an experimental in-memory candidate implementation.
