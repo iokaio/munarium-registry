@@ -69,9 +69,10 @@ declared version policy.
 
 Use `python` or `python3` where `py` is unavailable. Rust checks use 1.98.1 with rustfmt
 and Clippy; the new [Rust workflow](.github/workflows/rust.yml) installs that version explicitly.
-The crate has no external dependencies; commit the lockfile and review/pin dependencies when
-implementation introduces them. [Validation](docs/validation.md) distinguishes scaffold checks
-from future acceptance tests. There are no runtime or conformance tests yet.
+The candidate library pins external dependencies in Cargo.toml and Cargo.lock. Run
+`cargo fetch --locked` once before offline checks; CI performs that cache preparation too.
+[Validation](docs/validation.md) distinguishes local candidate tests from unavailable service,
+activation and platform integration coverage. Review dependency provenance and notices.
 The workflows under `.github/workflows/` are the source of truth for automatic coverage.
 Add component conformance coverage with each behavior; keep existing automatic suites intact.
 

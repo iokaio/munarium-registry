@@ -23,9 +23,10 @@ Governance Platform whose first useful public increment is a signed manifest cat
 
 ## Current state
 
-This repository contains governance documents, indexed build guides and a dependency-free,
-non-publishable Rust library scaffold. Its modules declare proposed local interfaces only;
-there is no runtime implementation, service, wire schema or qualified capability.
+This repository contains governance documents, indexed build guides and a non-publishable
+Rust library with an experimental in-memory candidate catalog. It validates signed manifests
+against a pinned, unreleased hub candidate; the embedding host supplies verified callers and
+current trust. There is no service, persistence, activation or qualified production capability.
 Read [docs/README.md](docs/README.md) and the relevant module before implementation.
 Consequences for any task:
 
@@ -40,6 +41,13 @@ Consequences for any task:
   language gates to CONTRIBUTING.md and CI in the same pull request as the code.
 
 ## Local tests before pull requests
+
+For REG-01, the maintainer has authorized the build-support changes: fetch the locked
+public dependencies before the existing offline CI gates, update stale scaffold
+descriptions, and add JWT-rule exceptions for the 31 public signed-manifest fixture
+findings (30 distinct strings) in their designated file. Check that changed strings, other files
+and other secret rules still report. This authorization does not cover broad scanner
+exclusions, disabled checks, release/activation authority or history rewrites.
 
 Before opening a PR, run the gates relevant to the change when the required
 tools are available. Reuse local build caches and batch related fixes before
@@ -170,7 +178,7 @@ Consult CONTRIBUTING.md and the CI workflows for the exact commands. Today they 
 |---|---|
 | Every contribution | From root: `py check_license.py`, `py scripts/private_material_scan.py`, `py scripts/docs_linkcheck.py`, `gitleaks dir . --config .gitleaks.toml`, and `git diff --check` |
 | Documentation | Every relative link resolves; every page under `docs/` is listed from an index; the README's status and capability table still describe the tree |
-| Rust scaffold | Rust 1.98.1: `cargo fmt --all --check`, `cargo build --offline --locked`, `cargo clippy --offline --locked --all-targets -- -D warnings`, `cargo test --offline --locked`, `cargo doc --offline --locked --no-deps`; no external dependencies or behavioral tests yet |
+| Rust candidate library | Rust 1.98.1: `cargo fmt --all --check`, `cargo build --offline --locked`, `cargo clippy --offline --locked --all-targets -- -D warnings`, `cargo test --offline --locked`, `cargo doc --offline --locked --no-deps`; first populate pinned dependencies with `cargo fetch --locked`; includes candidate behavioral tests |
 
 Use `python` or `python3` where `py` is unavailable. Never invent a successful
 run. Report failed, skipped, unavailable and model-dependent checks distinctly.

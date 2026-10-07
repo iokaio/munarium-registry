@@ -1,0 +1,1156 @@
+{
+  "status": "proposed",
+  "keys": {
+    "fixture-key": {
+      "issuer": "fixture-issuer",
+      "purposes": [
+        "bootstrap",
+        "decision"
+      ],
+      "public_key": "h7psTffEWTc193AH1APpu_FujQ39oHi7-mLdcq-LgQ8"
+    }
+  },
+  "cases": [
+    {
+      "id": "valid-bootstrap",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "accept"
+    },
+    {
+      "id": "retired-key",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [
+          "fixture-key"
+        ],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "wrong-tenant",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "beta",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "wrong-audience",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-gate",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "wrong-peer",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "expired",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1100,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "future",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 899,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "expiry-uncertainty",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1098,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "retired-bootstrap",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": true
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "unavailable",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": false,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "restore",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": true,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "unenrolled-human",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "stale-head",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 1
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "agent-bootstrap",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "sfgtJY6Z2GbAM9WZbHYMOn0ZVKcIeBJ-utm-vxqDBWBITu7r0scNxRrGqIMZI1QVC0kfHgIWl050J3uIESUjDg"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "long-lifetime",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMzAxLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "_CPqNlTu5Y-Xw43O-dlAXqpmNn9atOK0y_4pQ93mJ_myV7ED_OpRq-v1PuvH1R3kNOPbTNkO0HsI2kg1N_NLDw"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "wrong-issuer",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoib3RoZXItaXNzdWVyIiwibmJmIjo5MDAsIm9yaWdpbiI6Imh1bWFuLWEiLCJvcmlnaW5fa2luZCI6Imh1bWFuIiwicGFyZW50X2RpZ2VzdCI6bnVsbCwicHVycG9zZSI6ImJvb3RzdHJhcCIsInJlc291cmNlcyI6WyJnb3Zlcm5hbmNlIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZ292ZXJuIl0sInNlcnZpY2UiOiJzdmMtYm9vdHN0cmFwIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "c4M5dMGvKp2kPrcr-5rwDNl18v1z0-H4tLrKxfSehDqlFvhcYDRECl1WUsoR3qj6jUMN1g0SKuAJ57r-LF8tCQ"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "false-root",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoic29tZW9uZS1lbHNlIiwib3JpZ2luX2tpbmQiOiJodW1hbiIsInBhcmVudF9kaWdlc3QiOm51bGwsInB1cnBvc2UiOiJib290c3RyYXAiLCJyZXNvdXJjZXMiOlsiZ292ZXJuYW5jZSJdLCJzY2hlbWFfdmVyc2lvbiI6MSwic2NvcGVzIjpbImdvdmVybiJdLCJzZXJ2aWNlIjoic3ZjLWJvb3RzdHJhcCIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "5i5JRcy4V1C9Ago-coZmf8QTR9vk-GAkIhRIweJGQpRicuZCPbLYorL9WdlByd-AZAngDQBHq9PryQoKEYLDAA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "forged",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "substituted-payload",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJiZXRhIn0",
+          "signature": "Dol-IbBTfR8aCUiXDW8U6_oyDOz__h-P6Dg55JjvLUbT_IzPwMJ2BVKPjqtwt7Da7DTlCQEhF6Y8hN0lQuB6BA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "beta",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "algorithm-confusion",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZERTQSIsImtpZCI6ImZpeHR1cmUta2V5IiwidHlwIjoibXVuYXJpdW0tcHJpbmNpcGFsK2p3cyJ9",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "Yl_Gjrtmf14iqBrmTm--7Xub5ifxGnOFN3u0pwuQvODbqpE-A_Mr23QL9k6NzOd8SQX4l0_B58F9w2bXe1_CDg"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "valid-delegation",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "dXneeNJmMcqn7HoYsaWWH9k1DKHmGvIx3infXwR-yTlwVcPCuPuJlC_4DxD3pOh0HnVjzpsxIGu-2_IOdrmiBA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "accept"
+    },
+    {
+      "id": "wider-scope",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicHJvcG9zZSJdLCJzZXJ2aWNlIjoic3ZjLWhhcm5lc3MiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "0lBS2YdHWCZInQWAq_YN7tudqYVs4xTiiRGBRGTVod0iRx9AfYjMfbd7SPefTVjMb4HrRXfiWvF3gkDhJkNnCQ"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "wider-resource",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1jIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "awRoesSkw3EbKyojszFsIl1M6bvbQH2f8vidpGm2D1YPxesMho_JRzkEBPaUGxrC1Qw1C5HRZHYbN_FUqkerDQ"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "longer-delegation",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQxLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "7XVfBMmcOpazfY0h-Bd4X1b6WjAjmRBNnFE41K-5HkS3jDsCMxu13BrbC-mtFlnhKDAoG9pcpsMfMoXYZwlFBw"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "changed-origin",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "H-hTDBGuM7DjE6eUMYodUKXojB4xVU9hZ2d_7LACDOb4JJAdGlqRLn_y7ZCwlSAN2brfVuc_yC5Yb2fqj_OuBA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "cycle",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "BXUScTl_vZ7Vt3_VHOnfS4p4_6aTgy2-JwnYRx767E-uKLAXOZn4Ont70vNaBR4QRrh2pbEv-AIRzSV5Qk12Bg"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "parent-substitution",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "wVeBxOc3U-7NMW95CXFjEBfG65gPLeXfWCJhX5n35Upq9l20PlXE14hbEapDQFEO0hOMMNpnkvRZKLifOr19DA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "delegated-ratifier",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmF0aWZ5Il0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "-QfaEBbDBbTF-oWqen3ZRIpvew0YppTyxtZ8t9RneQaPiPJnnQnHRju_u5gfbFtnUsGAA3T59-IgP64VJfPdDw"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "unknown-key",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoib3RoZXIta2V5IiwidHlwIjoibXVuYXJpdW0tcHJpbmNpcGFsK2p3cyJ9",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "xF6TE_-o2XtGvgKRxNYvtzvyamoOtYWcnaMijjBkXqSntLdhrsNdz3hcgfdiV2KikaIMNlPvWaKFdDT1apTUCA"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "header-key-url",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwiamt1IjoiaHR0cHM6Ly9leGFtcGxlLmludmFsaWQva2V5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6Imh1bWFuLWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOnsiYWN0aW9uIjoiaW5zdGFsbC1nb3Zlcm5hbmNlIiwiYXJ0aWZhY3RfZGlnZXN0Ijoic2hhMjU2OmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJlcG9jaCI6MSwiZXhwZWN0ZWRfaGVhZCI6MCwiZXhwZWN0ZWRfcmV2aXNpb24iOiJzaGEyNTY6YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsIm5vbmNlIjoiZW5yb2xsbWVudC0xIn0sImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMTAwLCJpYXQiOjkwMCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjkwMCwib3JpZ2luIjoiaHVtYW4tYSIsIm9yaWdpbl9raW5kIjoiaHVtYW4iLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiYm9vdHN0cmFwIiwicmVzb3VyY2VzIjpbImdvdmVybmFuY2UiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNjb3BlcyI6WyJnb3Zlcm4iXSwic2VydmljZSI6InN2Yy1ib290c3RyYXAiLCJ0ZW5hbnQiOiJhbHBoYSJ9",
+          "signature": "D5uiJMll3W_mr8J5fijQYrCwgxhmzZL1Ri6ahZr_Vb9tmeAIhkGeZOmONAofEypihVf9j0jeFyk9CvLQFvYkCQ"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-bootstrap",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    },
+    {
+      "id": "four-edges",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "lu2u4Jbn8aul0hPB5gUqMU-XNJTiOwWUEycp2qyn5e8oj5VCdKZXphpS8ukPyyCrlVm2Sb_iUtx4Pl2Et4HPBQ"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OmViYTIwNzU0ODU0Yjk1ZTYzNDZkM2M5YjJlMzk5Y2E1ZDZkOThjNDdjOWZhMTAwNmIwZWVjYmEzY2Q0MzU1MGMiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "tLgzvimkCqID-1k_nDLEvRwqKphkjfh3nFxc5B350eu_YR1LKXPEGOxJkYilOz7M_Eb8Juvvye-o5l1pEgOFAg"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTMiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjY0ODY2Mjg0NjYyYmE4YTM2Zjk3NDFkMTZlYzEyYTE0ZWFlNTgzMjY4MmRhY2UxNzVmMjMyZjc1MzE3NmVmZjgiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "5RwIFgINzlSVUtHGovSg2vMFGdoa0ew4I2Fv2Zv42lpHaa7ln5SZ4npOFLPpvu976Vi8ooLPmLSZsGYecDRACg"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTQiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjJiZWQxYjVmZjA0ZmEzNjdhNzg2MmFiZDQ1ODczNjA4NjkxMGQ5MWUwODU1OWNhZmE2YmFlMTg2YWI0OWNlMGUiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "nEIm9vnVYYBOR7_cki0CD7Fd_eWmmA2wppbXJDs9ot13H_ryCadH0pOI8hQy-tNos5dmKqHUkTxKllLo2aUDAg"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "accept"
+    },
+    {
+      "id": "fifth-edge",
+      "tokens": [
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LWEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDQwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0IjpudWxsLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIiwiaXRlbS1iIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsicmVhZCIsImV2YWx1YXRlIl0sInNlcnZpY2UiOiJzdmMtaGFybmVzcyIsInRlbmFudCI6ImFscGhhIn0",
+          "signature": "ZWY11TD-d6YsRkAYTRyTvCHZkVs-6qLAyP0NwMYq6im2e1W3fonH9N0hElRa2R8J58LYv7tkshqufKH-5Q7SBA"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTEiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjljNTVlZTMzMGFlN2E0YzFlZDcwMGE3ZThlODAwYmQwNGM1OTNmYzU4MzY4ZjEwYjgxZGJhOGI4YmRlZmQxMWEiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "lu2u4Jbn8aul0hPB5gUqMU-XNJTiOwWUEycp2qyn5e8oj5VCdKZXphpS8ukPyyCrlVm2Sb_iUtx4Pl2Et4HPBQ"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTIiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OmViYTIwNzU0ODU0Yjk1ZTYzNDZkM2M5YjJlMzk5Y2E1ZDZkOThjNDdjOWZhMTAwNmIwZWVjYmEzY2Q0MzU1MGMiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "tLgzvimkCqID-1k_nDLEvRwqKphkjfh3nFxc5B350eu_YR1LKXPEGOxJkYilOz7M_Eb8Juvvye-o5l1pEgOFAg"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTMiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjY0ODY2Mjg0NjYyYmE4YTM2Zjk3NDFkMTZlYzEyYTE0ZWFlNTgzMjY4MmRhY2UxNzVmMjMyZjc1MzE3NmVmZjgiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "5RwIFgINzlSVUtHGovSg2vMFGdoa0ew4I2Fv2Zv42lpHaa7ln5SZ4npOFLPpvu976Vi8ooLPmLSZsGYecDRACg"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTQiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OjJiZWQxYjVmZjA0ZmEzNjdhNzg2MmFiZDQ1ODczNjA4NjkxMGQ5MWUwODU1OWNhZmE2YmFlMTg2YWI0OWNlMGUiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "nEIm9vnVYYBOR7_cki0CD7Fd_eWmmA2wppbXJDs9ot13H_ryCadH0pOI8hQy-tNos5dmKqHUkTxKllLo2aUDAg"
+        },
+        {
+          "protected": "eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZml4dHVyZS1rZXkiLCJ0eXAiOiJtdW5hcml1bS1wcmluY2lwYWwrandzIn0",
+          "payload": "eyJhY3RvciI6ImFnZW50LTUiLCJhdWRpZW5jZSI6InN2Yy1zZXJ2ZXIiLCJib290c3RyYXAiOm51bGwsImRlcGxveW1lbnQiOiJmaXh0dXJlIiwiZXhwIjoxMDMwLCJpYXQiOjk4MCwiaXNzdWVyIjoiZml4dHVyZS1pc3N1ZXIiLCJuYmYiOjk4MCwib3JpZ2luIjoiYWdlbnQtYSIsIm9yaWdpbl9raW5kIjoiYWdlbnQiLCJwYXJlbnRfZGlnZXN0Ijoic2hhMjU2OmI5YmM3YjVjNjU4N2U1M2RhZTU1ZTA1NDg0OGQzNzMzNzM0ZmE2M2JjMTUyZWI2YzQyZDdkMjk5MDUwYzNmMzUiLCJwdXJwb3NlIjoiZGVjaXNpb24iLCJyZXNvdXJjZXMiOlsiaXRlbS1hIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzY29wZXMiOlsiZXZhbHVhdGUiXSwic2VydmljZSI6InN2Yy1oYXJuZXNzIiwidGVuYW50IjoiYWxwaGEifQ",
+          "signature": "Wmw38tA97YMcD5G3P4DWBzItFfJIoFlTYmaMV7atB7CiMRsouViCiBAixESkv89pol6W_Nk4_tpN2Rf26T3XDg"
+        }
+      ],
+      "context": {
+        "deployment": "fixture",
+        "tenant": "alpha",
+        "audience": "svc-server",
+        "peer_service": "svc-harness",
+        "now": 1000,
+        "retired_keys": [],
+        "authority_available": true,
+        "restore_quarantined": false,
+        "enrolled_humans": [
+          "human-a"
+        ],
+        "expected_bootstrap": {
+          "epoch": 1,
+          "nonce": "enrollment-1",
+          "action": "install-governance",
+          "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expected_revision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "expected_head": 0
+        },
+        "bootstrap_retired": false
+      },
+      "expected": "reject"
+    }
+  ]
+}

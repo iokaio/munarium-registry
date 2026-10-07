@@ -1,0 +1,10 @@
+{
+  "status": "proposed-not-released",
+  "schema_version": 1,
+  "files": {
+    "foundation.schema.json": "dbf067bbcd0f708fd37feff581f323dcb2a2222d101af78c5bc34bf30f1881fb",
+    "identity-vectors.json": "a60f52749ad657fea82abdddc79955b235946391bb1a7a76373a705bba111c2d",
+    "record-vectors.json": "fbe93424547d4dfc4387823ef2cd28d964ff32027c6af84f07d61a5853142d1b"
+  },
+  "bundle_sha256": "5ee201e48a2390b7cf66fdf6aa8750f751f1ec9241e9e04131b6632745612238"
+}

@@ -1,13 +1,13 @@
 # Munarium Registry build plan
 
-**Proposed work; no functional milestone is complete.** The design baseline is the
+**REG-01 local candidate implementation present; platform milestone incomplete.** The design baseline is the
 [public platform plan, revision 4](https://github.com/iokaio/munarium-platform/blob/main/docs/platform-plan.md), section 7, and its
 stage sequence in section 25. Registry's initial delivery belongs to **Stage 1**.
 Calendar windows are planning targets; acceptance evidence controls advancement.
 
 ## Preparation present in this checkout
 
-- A non-publishable, dependency-free Cargo library with documented interface modules.
+- A non-publishable Cargo library with pinned dependencies and candidate read/intake implementation.
 - An [architecture map](architecture.md) naming ownership, trust assumptions and failures.
 - An [acceptance specification](validation.md) and automatic Rust build checks.
 - Existing contribution, security, support and repository-hygiene processes.
@@ -17,12 +17,21 @@ or advance this repository beyond the hub's **repository created** catalog state
 
 ## First work packet: REG-01: validate and resolve a candidate manifest without activating it
 
+The [readiness packet](reg-01-readiness.md) preserves the original preparation.
+The [implementation record](reg-01-implementation.md) documents the subsequently authorized
+local experiment, concrete contract pin, executable component tests and integration gaps.
+Formal contract acceptance and the integrated Stage 1 gate remain pending.
+
 **Prerequisites:** accepted hub decisions and the specific contracts named in
 [Architecture](architecture.md); record the exact revisions used. All fixtures must be synthetic
 or authorized public inputs. The hub [contract backlog](https://github.com/iokaio/munarium-platform/blob/main/docs/architecture/contract-backlog.md)
 tracks unresolved cross-component definitions.
 
-**Work:** After the hub manifest decision is accepted, implement validation and immutable lookup using synthetic artifacts. Keep intake and activation interfaces separate. The fixture includes two tenants, one unknown digest, one unsigned artifact, and one identity reused with changed bytes.
+**Work:** The authorized local experiment implements validation, immutable lookup and
+recipient-bound identity verification using the pinned hub candidates. Formal acceptance
+remains open. Intake and activation interfaces remain separate. Tests include two tenants,
+unknown/unsigned artifacts, identity reuse with changed bytes, expired authority and
+misbound principal chains. See the [Warden review](warden-integration.md).
 
 **Permitted scope:** the relevant modules under `src/`, component-local tests/fixtures,
 and their documentation. Add dependencies, runtime wiring, or migrations only when the packet

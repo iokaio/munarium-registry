@@ -1,0 +1,581 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "const": 2
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "capability_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "target_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "environment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "credential_audience": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "parameter_schema_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "minLength": 71,
+          "maxLength": 71
+        },
+        "result_schema_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "minLength": 71,
+          "maxLength": 71
+        },
+        "base_consequence": {
+          "type": "string",
+          "enum": [
+            "C0",
+            "C1",
+            "C2",
+            "C3",
+            "C4"
+          ]
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/modifier"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": false
+        },
+        "required_inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/required_input"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": false
+        },
+        "effect": {
+          "type": "string",
+          "enum": [
+            "observation",
+            "internal-change",
+            "external-effect"
+          ]
+        },
+        "idempotency": {
+          "type": "string",
+          "enum": [
+            "none",
+            "operation-key"
+          ]
+        },
+        "compensation": {
+          "type": "string",
+          "enum": [
+            "none",
+            "separate-action"
+          ]
+        },
+        "profile": {
+          "type": "string",
+          "const": "registry-manifest-v2"
+        },
+        "tenant": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "publisher_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "owner_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "operation_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "data_classifications": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "required_obligations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "distinct-approval"
+            ]
+          },
+          "maxItems": 32,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "version",
+        "capability_id",
+        "target_id",
+        "environment",
+        "credential_audience",
+        "parameter_schema_digest",
+        "result_schema_digest",
+        "base_consequence",
+        "modifiers",
+        "required_inputs",
+        "effect",
+        "idempotency",
+        "compensation",
+        "profile",
+        "tenant",
+        "publisher_id",
+        "owner_id",
+        "operation_id",
+        "data_classifications",
+        "required_obligations"
+      ],
+      "additionalProperties": false
+    },
+    "modifier": {
+      "type": "object",
+      "properties": {
+        "field_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "predicate_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "minLength": 71,
+          "maxLength": 71
+        },
+        "raise_to": {
+          "type": "string",
+          "enum": [
+            "C1",
+            "C2",
+            "C3",
+            "C4"
+          ]
+        }
+      },
+      "required": [
+        "field_path",
+        "predicate_digest",
+        "raise_to"
+      ],
+      "additionalProperties": false
+    },
+    "required_input": {
+      "type": "object",
+      "properties": {
+        "field_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "derivation_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "derivation_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        },
+        "permitted_use": {
+          "type": "string",
+          "enum": [
+            "decision"
+          ]
+        }
+      },
+      "required": [
+        "field_path",
+        "source_id",
+        "derivation_id",
+        "derivation_version",
+        "permitted_use"
+      ],
+      "additionalProperties": false
+    },
+    "header": {
+      "type": "object",
+      "properties": {
+        "alg": {
+          "type": "string",
+          "const": "Ed25519"
+        },
+        "typ": {
+          "type": "string",
+          "const": "munarium-manifest+jws"
+        },
+        "kid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+        }
+      },
+      "required": [
+        "alg",
+        "typ",
+        "kid"
+      ],
+      "additionalProperties": false
+    },
+    "trust": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "const": 2
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "tenants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+              },
+              "owners": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "human",
+                        "organization"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 32,
+                "minItems": 1,
+                "uniqueItems": false
+              },
+              "classifications": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                },
+                "maxItems": 32,
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "operations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "target_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "environment": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "operation_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "credential_audience": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "capability_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "parameter_schema_digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}$",
+                      "minLength": 71,
+                      "maxLength": 71
+                    },
+                    "result_schema_digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}$",
+                      "minLength": 71,
+                      "maxLength": 71
+                    }
+                  },
+                  "required": [
+                    "target_id",
+                    "environment",
+                    "operation_id",
+                    "credential_audience",
+                    "capability_id",
+                    "parameter_schema_digest",
+                    "result_schema_digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 32,
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "publishers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "kid": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                    },
+                    "public_key": {
+                      "type": "string",
+                      "minLength": 43,
+                      "maxLength": 43
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "owner_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128,
+                        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                      },
+                      "maxItems": 32,
+                      "minItems": 1,
+                      "uniqueItems": true
+                    },
+                    "operations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "target_id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                          },
+                          "environment": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                          },
+                          "operation_id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                          },
+                          "credential_audience": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                          },
+                          "capability_id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"
+                          },
+                          "parameter_schema_digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[0-9a-f]{64}$",
+                            "minLength": 71,
+                            "maxLength": 71
+                          },
+                          "result_schema_digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[0-9a-f]{64}$",
+                            "minLength": 71,
+                            "maxLength": 71
+                          }
+                        },
+                        "required": [
+                          "target_id",
+                          "environment",
+                          "operation_id",
+                          "credential_audience",
+                          "capability_id",
+                          "parameter_schema_digest",
+                          "result_schema_digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "maxItems": 32,
+                      "minItems": 1,
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kid",
+                    "public_key",
+                    "enabled",
+                    "owner_ids",
+                    "operations"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 32,
+                "minItems": 1,
+                "uniqueItems": false
+              },
+              "schemas": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}$",
+                      "minLength": 71,
+                      "maxLength": 71
+                    },
+                    "canonical": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 65536
+                    }
+                  },
+                  "required": [
+                    "digest",
+                    "canonical"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 32,
+                "minItems": 1,
+                "uniqueItems": false
+              }
+            },
+            "required": [
+              "id",
+              "owners",
+              "classifications",
+              "operations",
+              "publishers",
+              "schemas"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "revision",
+        "tenants"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:munarium:candidate:warden-admission:v1",
+  "title": "Proposed Warden admission records; not activated or released",
+  "$defs": {
+    "identifier": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9][a-zA-Z0-9:._/-]*$"},
+    "text": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "timestamp": {"type": "integer", "minimum": 0, "maximum": 9007199254740991},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$", "minLength": 71, "maxLength": 71},
+    "kind": {"type": "string", "enum": ["service", "agent"]},
+    "scopes": {"type": "array", "minItems": 1, "maxItems": 3, "uniqueItems": true, "items": {"type": "string", "enum": ["read", "evaluate", "propose"]}},
+    "resources": {"type": "array", "minItems": 1, "maxItems": 32, "uniqueItems": true, "items": {"$ref": "#/$defs/identifier"}},
+    "provider_binding": {
+      "type": "object",
+      "properties": {
+        "schema_version": {"type": "integer", "const": 1},
+        "binding_id": {"$ref": "#/$defs/identifier"},
+        "deployment": {"$ref": "#/$defs/identifier"},
+        "tenant": {"$ref": "#/$defs/identifier"},
+        "provider_issuer": {"$ref": "#/$defs/text"},
+        "provider_subject": {"$ref": "#/$defs/text"},
+        "origin_kind": {"$ref": "#/$defs/kind"},
+        "origin": {"$ref": "#/$defs/identifier"},
+        "peer_service": {"$ref": "#/$defs/identifier"},
+        "audiences": {"type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true, "items": {"$ref": "#/$defs/identifier"}},
+        "scopes": {"$ref": "#/$defs/scopes"},
+        "resources": {"$ref": "#/$defs/resources"},
+        "nbf": {"$ref": "#/$defs/timestamp"},
+        "exp": {"$ref": "#/$defs/timestamp"}
+      },
+      "required": ["schema_version", "binding_id", "deployment", "tenant", "provider_issuer", "provider_subject", "origin_kind", "origin", "peer_service", "audiences", "scopes", "resources", "nbf", "exp"],
+      "additionalProperties": false
+    },
+    "delegation_registration": {
+      "type": "object",
+      "properties": {
+        "schema_version": {"type": "integer", "const": 1},
+        "registration_id": {"$ref": "#/$defs/identifier"},
+        "deployment": {"$ref": "#/$defs/identifier"},
+        "tenant": {"$ref": "#/$defs/identifier"},
+        "origin": {"$ref": "#/$defs/identifier"},
+        "origin_kind": {"$ref": "#/$defs/kind"},
+        "from_actor": {"$ref": "#/$defs/identifier"},
+        "to_actor": {"$ref": "#/$defs/identifier"},
+        "presenter_service": {"$ref": "#/$defs/identifier"},
+        "audience": {"$ref": "#/$defs/identifier"},
+        "task_digest": {"$ref": "#/$defs/digest"},
+        "policy_digest": {"$ref": "#/$defs/digest"},
+        "scopes": {"$ref": "#/$defs/scopes"},
+        "resources": {"$ref": "#/$defs/resources"},
+        "max_depth": {"type": "integer", "minimum": 1, "maximum": 4},
+        "nbf": {"$ref": "#/$defs/timestamp"},
+        "exp": {"$ref": "#/$defs/timestamp"}
+      },
+      "required": ["schema_version", "registration_id", "deployment", "tenant", "origin", "origin_kind", "from_actor", "to_actor", "presenter_service", "audience", "task_digest", "policy_digest", "scopes", "resources", "max_depth", "nbf", "exp"],
+      "additionalProperties": false
+    },
+    "forwarded_attribution": {
+      "type": "object",
+      "properties": {
+        "schema_version": {"type": "integer", "const": 1},
+        "purpose": {"type": "string", "const": "attribution-only"},
+        "deployment": {"$ref": "#/$defs/identifier"},
+        "tenant": {"$ref": "#/$defs/identifier"},
+        "sender_service": {"$ref": "#/$defs/identifier"},
+        "recipient_service": {"$ref": "#/$defs/identifier"},
+        "principal_digest": {"$ref": "#/$defs/digest"},
+        "request_digest": {"$ref": "#/$defs/digest"}
+      },
+      "required": ["schema_version", "purpose", "deployment", "tenant", "sender_service", "recipient_service", "principal_digest", "request_digest"],
+      "additionalProperties": false
+    }
+  }
+}

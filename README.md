@@ -6,12 +6,11 @@ artifact that describes what a tool is allowed to do is the artifact Munarium Ga
 decides whether a proposed action may proceed. Discovered is not approved, published is not
 activated, and an immutable manifest is not permanently authorized.
 
-> **Status: Planned — Rust scaffold present.** This checkout contains a dependency-free,
-> non-publishable [Cargo library](Cargo.toml) and documented interfaces under [src/](src/lib.rs).
-> The interfaces have no implementations: no runtime service, client transport, database,
-> provider integration or contract implementation is available. No production path is qualified.
-> Build checks validate source structure, not governance capabilities. The
-> [capability table](#capability-status) remains the authoritative functional status.
+> **Status: Experimental candidate library.** The non-publishable [Rust library](Cargo.toml)
+> validates signed tool-manifest candidates, retains exact bytes in memory and supplies
+> tenant-scoped read/intake interfaces. [REG-01 evidence and limits](docs/reg-01-implementation.md)
+> describe its tests and trusted-host boundary. There is no service, persistent store,
+> provider/transport adapter or activation implementation. No production path is qualified.
 
 Registry is one of nine components built around the existing Munarium foundation, Munarium Server
 and Munarium Matrix. Their shared architecture, normative contracts, decision records, roadmap and
@@ -25,8 +24,9 @@ source from its first public commit, under the Apache License 2.0, with no propr
 
 Read the [development index](docs/README.md), then the [architecture](docs/architecture.md),
 [implementation plan](docs/implementation-plan.md) and [validation guide](docs/validation.md).
-They map the public platform plan to source modules, dependencies, a first bounded work item
-and acceptance cases. Runtime capabilities remain planned; supported contract versions are **none**.
+They map the public platform plan to source modules, dependencies and acceptance cases.
+The [local recipe](docs/reg-01-implementation.md#local-recipe) runs against a pinned, unreleased
+Registry v2 candidate contract. Formally accepted contract versions remain **none**.
 
 ## What Registry is for
 
@@ -115,17 +115,23 @@ at **repository created**.
 | Capability | Status | Evidence |
 |---|---|---|
 | Immutable artifact store: agent definitions, tool manifests, policy-bundle references, owners | Planned | none |
-| Schema validation of agent definitions and tool manifests | Planned | none |
+| In-memory immutable tool-manifest candidates | Experimental | [REG-01 component tests](tests/reg_01.rs) |
+| Tool-manifest signature and schema validation against the v2 candidate | Experimental | [32 signed vectors and validation tests](docs/reg-01-implementation.md) |
+| Schema validation of agent definitions | Planned | none |
 | Read API: resolve by digest, list capabilities for a principal, effective version per deployment | Planned | none |
-| Candidate intake for inert proposals, separate from the enforced catalog | Planned | none |
+| In-process tenant-scoped candidate resolution and listing | Experimental | [REG-01 component tests](tests/reg_01.rs) |
+| Candidate intake for inert proposals, separate from the enforced catalog | Experimental, in memory | [Authority boundary and limitations](docs/reg-01-implementation.md) |
+| Recipient-bound principal verification for candidate operations | Experimental, in process | [Identity and current-authority tests](tests/identity.rs); [Warden review](docs/warden-integration.md) |
 | Activation with attestation validation and compare-and-set on expected prior state | Planned | none |
 | Cache contract for consumers: freshness window, activation epoch, revocation status | Planned | none |
 | Activation records in the hub's action-record shapes | Planned | none |
 | Discovery import recipes: candidate, active, drifted, unmanaged | Planned, later | none |
 | Full cloud discovery, organizational asset synchronization, catalog UI | Deferred | none |
 
-Supported contract versions: **none**. Supported deployment profiles: **none**. Operations
-available today: **none**.
+Formally accepted contract versions: **none**. Implementation input:
+[unreleased Registry v2 candidate](contracts/README.md). Supported deployment profiles: **none**.
+Local library operations: validate/submit an inert candidate, resolve exact bytes, list a
+tenant's candidates and refresh host-provided trust. No effective catalog or activation exists.
 
 ## Acceptance evidence for the first release
 
@@ -172,9 +178,9 @@ owns or shares:
 - **Sentinel** compares registered capabilities with observed activity to identify drift and
   uncovered paths; **Console** lets an operator identify an owner and inspect a manifest without
   editing effective policy.
-- **External dependencies.** None chosen. The first implementation will favor a small number of
-  release formats and a PostgreSQL store consistent with the platform's single-cell reference
-  profile; that is a plan, not a decision record.
+- **External dependencies.** Pinned Rust cryptography and JSON dependencies are recorded in
+  [Cargo.toml](Cargo.toml) and [third-party notices](THIRD_PARTY_NOTICES.md). Persistence
+  remains a later packet; the current candidate catalog is in memory.
 
 ## Not in scope
 
@@ -205,8 +211,9 @@ credential isolation and required distinct authority are never removed to preser
 
 | Path | What exists |
 |---|---|
-| [Cargo.toml](Cargo.toml), [Cargo.lock](Cargo.lock) | Independent library, version 0.1.0-dev, publishing disabled, no external crate dependencies |
-| [src/lib.rs](src/lib.rs) | Documented proposed module interfaces; no runtime implementations |
+| [Cargo.toml](Cargo.toml), [Cargo.lock](Cargo.lock) | Independent library, version 0.1.0-dev, publishing disabled, pinned dependencies |
+| [src/lib.rs](src/lib.rs) | Experimental candidate library and separate interface declarations |
+| [contracts/](contracts/README.md), [tests/](tests/reg_01.rs) | Pinned hub candidate bundle and behavioral checks |
 | [docs/](docs/README.md) | Architecture, implementation sequence and acceptance specifications |
 | [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), [CLAUDE.md](CLAUDE.md) | Contribution process and aligned development guidance |
 | [.github/workflows/](.github/workflows/) | Automatic Rust, repository-hygiene and DCO checks |
@@ -214,12 +221,14 @@ credential isolation and required distinct authority are never removed to preser
 | [LICENSE](LICENSE), [NOTICE](NOTICE), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Licensing and dependency notices |
 
 Subsystem modules: [catalog](src/catalog.rs), [intake](src/intake.rs), [activation](src/activation.rs).
-Tests, fixtures, migrations, binaries and deployment assets arrive with the implementation that
-uses them. The scaffold defines no shared wire types and depends on no sibling checkout.
+The [candidate module](src/candidate.rs) implements in-memory intake and reads using the
+vendored contract. No migration, service binary or deployment asset is supplied; builds do
+not require a sibling checkout.
 
 ## Development
 
-Use Rust 1.98.1 with rustfmt, Clippy and the platform's native linker. From this repository root:
+Use Rust 1.98.1 with rustfmt, Clippy and the platform's native linker. Prime the pinned
+dependency cache once with `cargo fetch --locked`, then from this repository root:
 
 ```console
 cargo fmt --all --check
@@ -229,9 +238,9 @@ cargo test --offline --locked
 cargo doc --offline --locked --no-deps
 ```
 
-The crate currently has **zero runtime or conformance tests**. A successful test command checks
-the scaffold only. The [validation guide](docs/validation.md) gives the required behavioral
-test specifications and explains how to retain evidence when they are implemented.
+The tests cover fixed signed fixtures, byte identity, tenant isolation and current-trust
+refusals. [Validation](docs/validation.md) and the [REG-01 record](docs/reg-01-implementation.md)
+distinguish local component evidence from unimplemented activation and platform integration.
 
 Also run the existing hygiene gates:
 
