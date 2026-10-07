@@ -13,6 +13,110 @@ use sha2::{Digest, Sha256};
 fn vectors() -> Value {
     serde_json::from_str(include_str!("../contracts/registry-v2/signed-vectors.json")).unwrap()
 }
+
+#[test]
+#[cfg(feature = "sqlite")]
+fn durable_catalog_restarts_with_exact_bytes_and_rechecks_current_revocation() {
+    let temporary = tempfile::tempdir().unwrap();
+    let path = temporary.path().join("catalog.sqlite");
+    let alpha = caller("alpha");
+    let first;
+    {
+        let mut registry = Registry::open(&path, snapshot(&trust_value()), 32).unwrap();
+        first = registry
+            .intake(&alpha)
+            .submit(&submission("alpha"))
+            .unwrap();
+        assert!(matches!(
+            Registry::open(&path, snapshot(&trust_value()), 32),
+            Err(Error::StorageUnavailable)
+        ));
+        assert_eq!(
+            registry
+                .intake(&alpha)
+                .submit(&submission("alpha"))
+                .unwrap()
+                .artifact_digest(),
+            first.artifact_digest()
+        );
+    }
+    let mut registry = Registry::open(&path, snapshot(&trust_value()), 32).unwrap();
+    let read = registry.reader(&alpha).resolve(&query("alpha")).unwrap();
+    assert_eq!(read.envelope(), first.envelope());
+    assert_eq!(read.admission_revision(), first.admission_revision());
+    assert!(
+        registry
+            .reader(&caller("beta"))
+            .resolve(&query("alpha"))
+            .is_err()
+    );
+    let mut revoked = trust_value();
+    revoked["revision"] = json!(2);
+    revoked["tenants"][0]["publishers"][0]["enabled"] = json!(false);
+    registry.replace_trust(Some(snapshot(&revoked))).unwrap();
+    assert!(registry.reader(&alpha).resolve(&query("alpha")).is_err());
+    drop(registry);
+    assert!(matches!(
+        Registry::open(&path, snapshot(&trust_value()), 32),
+        Err(Error::StaleTrust)
+    ));
+    let registry = Registry::open(&path, snapshot(&revoked), 32).unwrap();
+    assert!(registry.reader(&alpha).resolve(&query("alpha")).is_err());
+    drop(registry);
+    let mut substituted = revoked.clone();
+    substituted["tenants"][0]["publishers"][0]["enabled"] = json!(true);
+    assert!(matches!(
+        Registry::open(&path, snapshot(&substituted), 32),
+        Err(Error::StaleTrust)
+    ));
+    let raw = rusqlite::Connection::open(&path).unwrap();
+    assert!(raw.execute("DELETE FROM catalog_trust_pins", []).is_err());
+    assert!(
+        raw.execute("UPDATE catalog_trust_pins SET digest='substituted'", [])
+            .is_err()
+    );
+    assert!(raw.execute("DELETE FROM candidates", []).is_err());
+    assert!(
+        raw.execute("UPDATE candidates SET envelope='different'", [])
+            .is_err()
+    );
+    assert_eq!(
+        raw.query_row("SELECT count(*) FROM candidates", [], |row| row
+            .get::<_, usize>(0))
+            .unwrap(),
+        1
+    );
+}
+
+#[test]
+#[cfg(feature = "sqlite")]
+fn failed_durable_admission_never_returns_an_acknowledgement() {
+    let temporary = tempfile::tempdir().unwrap();
+    let path = temporary.path().join("catalog.sqlite");
+    let mut registry = Registry::open(&path, snapshot(&trust_value()), 32).unwrap();
+    let alpha = caller("alpha");
+    let raw = rusqlite::Connection::open(&path).unwrap();
+    raw.execute_batch("BEGIN IMMEDIATE").unwrap();
+    assert!(matches!(
+        registry.intake(&alpha).submit(&submission("alpha")),
+        Err(Error::StorageUnavailable)
+    ));
+    assert!(matches!(
+        registry.reader(&alpha).list(),
+        Err(Error::TrustUnavailable)
+    ));
+    raw.execute_batch("ROLLBACK").unwrap();
+    assert_eq!(
+        raw.query_row("SELECT count(*) FROM candidates", [], |row| row
+            .get::<_, usize>(0))
+            .unwrap(),
+        0
+    );
+    drop(raw);
+    drop(registry);
+    let registry = Registry::open(&path, snapshot(&trust_value()), 32).unwrap();
+    assert!(registry.reader(&alpha).list().unwrap().is_empty());
+}
 fn trust_value() -> Value {
     serde_json::from_str(include_str!("../contracts/registry-v2/trust.json")).unwrap()
 }

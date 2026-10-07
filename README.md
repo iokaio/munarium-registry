@@ -6,11 +6,11 @@ artifact that describes what a tool is allowed to do is the artifact Munarium Ga
 decides whether a proposed action may proceed. Discovered is not approved, published is not
 activated, and an immutable manifest is not permanently authorized.
 
-> **Status: Experimental candidate library.** The non-publishable [Rust library](Cargo.toml)
-> validates signed tool-manifest candidates, retains exact bytes in memory and supplies
-> tenant-scoped read/intake interfaces. [REG-01 evidence and limits](docs/reg-01-implementation.md)
-> describe its tests and trusted-host boundary. There is no service, persistent store,
-> provider/transport adapter or activation implementation. No production path is qualified.
+> **Status: Stage 1 candidate service implemented.** The authenticated service/client
+> profile is implemented and covered by component and separate-process tests.
+> See the [service profile](docs/service-profile.md). Candidates remain inactive;
+> no execution endpoint is mounted. Human acceptance and production qualification
+> remain pending.
 
 Registry is one of nine components built around the existing Munarium foundation, Munarium Server
 and Munarium Matrix. Their shared architecture, normative contracts, decision records, roadmap and
