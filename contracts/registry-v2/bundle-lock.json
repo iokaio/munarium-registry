@@ -1,0 +1,12 @@
+{
+  "status": "candidate-not-released",
+  "source_base": "c46f86400732223a6a7c23f5d186250ab4a144eb",
+  "files": {
+    "registry.schema.json": "e05e4f14383497cf4cda6b5f5ef854891fe33feb7efb3e9481142296f4354cbd",
+    "signed-vectors.json": "debac4ca2595567751daeb7921dc749c101716f211a4f1c6ae7f1bd0149ddfaf",
+    "trust.json": "e1ec6ad6654b13fda0c4c67fb7281141255f69ec2959225d46b57d94a5a416c0",
+    "capability.schema.json": "f229076a0c6b0fbf853ce7fcb11c8b6ebcabea8a773cbf438aff7281ed6f1616",
+    "README.md": "10584cd948bdacddd837b0f78e04206e83e58c1f986241c0125cddf9076e50f5"
+  },
+  "bundle_sha256": "2e121d86c8dd4061ef1bdbc9dc073dceebfebf7305cf7a50d5d0e59385eaf0fc"
+}

@@ -1,11 +1,11 @@
 # Munarium Registry validation
 
-## Build the scaffold locally
+## Build and test the candidate library locally
 
 Use Rust **1.98.1** with Cargo, rustfmt and Clippy, plus the platform's native linker.
 The manifest requires Rust 1.98; older toolchains are not qualified by this scaffold.
-CI installs 1.98.1 explicitly. No provider account, database, model key, container, sibling
-checkout or downloaded crate is needed for these commands from the repository root:
+CI installs 1.98.1 explicitly. Prime dependencies using `cargo fetch --locked`.
+No provider account, database, model key, container or sibling checkout is needed:
 
 ```console
 cargo fmt --all --check
@@ -16,12 +16,15 @@ cargo doc --offline --locked --no-deps
 ```
 
 `Cargo.lock` is checked in. Do not regenerate it to bypass a locked-build failure.
-The initial lock contains only this package. When external dependencies arrive, pin and
-review them and revise the offline setup instructions to identify the required cache.
+The lock pins the complete dependency graph; [third-party notices](../THIRD_PARTY_NOTICES.md)
+record its provenance and licenses.
 
-Build and lint validate the interface declarations. **There are no runtime implementations,
-unit tests or conformance tests yet.** A successful `cargo test` with zero tests is only
-a scaffold check; the acceptance cases below are specifications, not executed evidence.
+Build and lint validate the library. Tests exercise the [REG-01 candidate implementation](reg-01-implementation.md),
+including 32 fixed signed cases, mutation/refusal boundaries and contract-integrity pins.
+The receiving-side tests additionally consume 32 unchanged signed principal cases and
+exercise current authority, recipient/peer binding and candidate API permissions.
+The [Warden probe recipe](warden-integration.md#interoperability-recipe) compiles the
+actual pinned Warden library separately; ordinary Registry builds need no sibling checkout.
 `cargo doc` produces local API documentation under `target/doc/`.
 
 Run the existing repository checks too:
@@ -48,7 +51,8 @@ The existing [hygiene workflow](../.github/workflows/repo-hygiene.yml) and
 
 ## Required behavioral acceptance cases
 
-These are **not implemented**. Invariant IDs refer to the catalog in
+REG-01 candidate refusal cases have local component coverage. Activation races, cached
+revocation and federation below remain **unimplemented**. Invariant IDs refer to the catalog in
 [platform plan revision 4, Appendix C](https://github.com/iokaio/munarium-platform/blob/main/docs/platform-plan.md) and the
 [hub catalog](https://github.com/iokaio/munarium-platform/blob/main/README.md#the-invariant-catalog). No contract bundle has been released.
 

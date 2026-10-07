@@ -1,0 +1,10 @@
+{
+  "status": "proposed-not-released",
+  "schema_version": 1,
+  "foundation_bundle_sha256": "5ee201e48a2390b7cf66fdf6aa8750f751f1ec9241e9e04131b6632745612238",
+  "files": {
+    "warden-admission-vectors.json": "0761416d55789b07f3d2914c6022fbec1dc5a120249d6bbeca1432c6e7c16c9a",
+    "warden-admission.schema.json": "b662f5d64d86178b4a1591d6b4f325b3667b4a6cffc67af6793318585351f9b2"
+  },
+  "bundle_sha256": "9ed4a12563d064e5d2068658b903a8b8813ffe49e8cd66356931af1447080283"
+}

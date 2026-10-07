@@ -3,16 +3,16 @@
 //!
 //! Readers must distinguish authentic bytes from currently authorized capability. Effective views require activation epoch, freshness, and revocation context.
 //!
-//! Proposed local interface only. No implementation or wire format is provided.
+//! The experimental [`crate::candidate::Reader`] implements candidate-only lookup.
 
 /// Proposed boundary for: read an immutable artifact through a tenant-scoped query.
 ///
-/// Implementations and concrete types await the component design and hub contracts.
+/// The candidate implementation uses a pinned, unreleased hub contract.
 /// This declaration does not enforce authentication, authorization, or durability.
 pub trait CatalogReader {
-    /// Input whose concrete shape and validation rules are still to be specified.
+    /// Implementation-specific lookup constraints.
     type Query;
-    /// Output whose concrete shape and evidence requirements are still to be specified.
+    /// Artifact and its implementation-specific verification evidence.
     type Artifact;
     /// Failure reported without manufacturing a successful or authorized result.
     type Error;

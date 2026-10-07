@@ -3,16 +3,16 @@
 //!
 //! Discovery and agent submission cannot alter the effective catalog; candidate identifiers are not activation attestations.
 //!
-//! Proposed local interface only. No implementation or wire format is provided.
+//! The experimental [`crate::candidate::Intake`] implements candidate-only admission.
 
 /// Proposed boundary for: record an inert candidate for later review.
 ///
-/// Implementations and concrete types await the component design and hub contracts.
+/// The candidate implementation uses a pinned, unreleased hub contract.
 /// This declaration does not enforce authentication, authorization, or durability.
 pub trait CandidateIntake {
-    /// Input whose concrete shape and validation rules are still to be specified.
+    /// Implementation-specific candidate submission.
     type Candidate;
-    /// Output whose concrete shape and evidence requirements are still to be specified.
+    /// Candidate reference with implementation-specific admission evidence.
     type CandidateReference;
     /// Failure reported without manufacturing a successful or authorized result.
     type Error;
