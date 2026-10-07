@@ -2,7 +2,7 @@
 //! Experimental in-process candidate catalog. The embedding host is trusted.
 //!
 //! The host supplies already verified callers and governing trust snapshots.
-//! This module does not authenticate network clients, activate policy or persist data.
+//! This module does not authenticate network clients or activate policy. SQLite custody is optional.
 //! Intake and reader handles cannot modify host trust or acquire activation authority.
 
 use crate::{catalog::CatalogReader, intake::CandidateIntake, validation as v};
@@ -44,6 +44,8 @@ pub enum Error {
     NotFound,
     /// The caller's bounded in-memory candidate inventory is full.
     Capacity,
+    /// Durable storage, its exclusive custody lock or committed history is unavailable.
+    StorageUnavailable,
 }
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -348,12 +350,61 @@ fn verify(envelope: &str, caller: &Caller, trust: &TrustSnapshot) -> Result<Cand
     })
 }
 
-/// Trusted host's in-memory store; expose only scoped handles to intake/read adapters.
+/// Trusted host's bounded store; expose only scoped handles to intake/read adapters.
 pub struct Registry {
     trust: Option<TrustSnapshot>,
     last_revision: u64,
     entries: BTreeMap<(String, String, String), Candidate>,
     capacity: usize,
+    #[cfg(feature = "sqlite")]
+    durable: Option<Durable>,
+}
+#[cfg(feature = "sqlite")]
+struct Durable {
+    connection: rusqlite::Connection,
+    _custody: std::fs::File,
+}
+#[cfg(feature = "sqlite")]
+fn persist_trust(connection: &rusqlite::Connection, trust: &TrustSnapshot) -> Result<(), Error> {
+    use rusqlite::OptionalExtension;
+    let tx = connection
+        .unchecked_transaction()
+        .map_err(|_| Error::StorageUnavailable)?;
+    let floor: Option<u64> = tx
+        .query_row(
+            "SELECT revision FROM catalog_revision WHERE singleton=1",
+            [],
+            |r| r.get(0),
+        )
+        .optional()
+        .map_err(|_| Error::StorageUnavailable)?;
+    let pin: Option<String> = tx
+        .query_row(
+            "SELECT digest FROM catalog_trust_pins WHERE revision=?1",
+            [trust.revision],
+            |r| r.get(0),
+        )
+        .optional()
+        .map_err(|_| Error::StorageUnavailable)?;
+    let digest = v::digest(
+        "munarium:registry-trust:v2",
+        &serde_json::to_vec(&trust.value).map_err(|_| Error::InvalidTrust)?,
+    );
+    // A pre-pin database must advance to a new operator revision; inventing a digest
+    // for its old revision would silently bless potentially substituted authority.
+    if floor.is_some_and(|r| {
+        trust.revision < r || (trust.revision == r && pin.as_deref() != Some(&digest))
+    }) {
+        return Err(Error::StaleTrust);
+    }
+    if pin.as_ref().is_some_and(|old| old != &digest) {
+        return Err(Error::StaleTrust);
+    }
+    tx.execute("INSERT INTO catalog_trust_pins(revision,digest) VALUES(?1,?2) ON CONFLICT(revision) DO NOTHING",
+        rusqlite::params![trust.revision,digest]).map_err(|_| Error::StorageUnavailable)?;
+    tx.execute("INSERT INTO catalog_revision VALUES(1,?1) ON CONFLICT(singleton) DO UPDATE SET revision=excluded.revision",[trust.revision])
+        .map_err(|_| Error::StorageUnavailable)?;
+    tx.commit().map_err(|_| Error::StorageUnavailable)
 }
 impl Registry {
     /// Construct a bounded local catalog with no active artifacts or activation writer.
@@ -363,7 +414,120 @@ impl Registry {
             trust: Some(trust),
             entries: BTreeMap::new(),
             capacity,
+            #[cfg(feature = "sqlite")]
+            durable: None,
         }
+    }
+    /// Open an exclusively owned durable catalog. Every read still verifies current trust.
+    /// Exact signed bytes, first-admission revision and the trust revision floor survive restart.
+    /// This profile supports one process per database; another opener refuses while it is held.
+    #[cfg(feature = "sqlite")]
+    pub fn open(
+        path: &std::path::Path,
+        trust: TrustSnapshot,
+        capacity: usize,
+    ) -> Result<Self, Error> {
+        let unavailable = |_| Error::StorageUnavailable;
+        let file = std::fs::OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .truncate(false)
+            .open(path)
+            .map_err(unavailable)?;
+        let canonical = path.canonicalize().map_err(unavailable)?;
+        let mut lock_path = canonical.into_os_string();
+        lock_path.push(".lock");
+        let custody = std::fs::OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .truncate(false)
+            .open(std::path::PathBuf::from(lock_path))
+            .map_err(unavailable)?;
+        custody.try_lock().map_err(|_| Error::StorageUnavailable)?;
+        drop(file);
+        let connection = rusqlite::Connection::open(path).map_err(|_| Error::StorageUnavailable)?;
+        connection
+            .busy_timeout(std::time::Duration::from_millis(500))
+            .map_err(|_| Error::StorageUnavailable)?;
+        connection.execute_batch("PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;
+            CREATE TABLE IF NOT EXISTS candidates(tenant TEXT NOT NULL, id TEXT NOT NULL, version TEXT NOT NULL,
+                envelope TEXT NOT NULL CHECK(length(envelope)<=90000), admission_revision INTEGER NOT NULL,
+                PRIMARY KEY(tenant,id,version));
+            CREATE TABLE IF NOT EXISTS catalog_revision(singleton INTEGER PRIMARY KEY CHECK(singleton=1), revision INTEGER NOT NULL);
+            CREATE TRIGGER IF NOT EXISTS candidates_no_update BEFORE UPDATE ON candidates BEGIN SELECT RAISE(ABORT,'immutable candidate'); END;
+            CREATE TRIGGER IF NOT EXISTS candidates_no_delete BEFORE DELETE ON candidates BEGIN SELECT RAISE(ABORT,'immutable candidate'); END;
+            CREATE TRIGGER IF NOT EXISTS revision_monotonic BEFORE UPDATE ON catalog_revision WHEN NEW.revision<OLD.revision BEGIN SELECT RAISE(ABORT,'revision regression'); END;
+            CREATE TRIGGER IF NOT EXISTS revision_no_delete BEFORE DELETE ON catalog_revision BEGIN SELECT RAISE(ABORT,'immutable revision floor'); END;")
+            .map_err(|_| Error::StorageUnavailable)?;
+        // Additive extension; existing candidate history and revision floors are retained.
+        connection.execute_batch("CREATE TABLE IF NOT EXISTS catalog_trust_pins(revision INTEGER PRIMARY KEY,digest TEXT NOT NULL);
+            CREATE TRIGGER IF NOT EXISTS trust_pins_no_update BEFORE UPDATE ON catalog_trust_pins BEGIN SELECT RAISE(ABORT,'immutable trust pin'); END;
+            CREATE TRIGGER IF NOT EXISTS trust_pins_no_delete BEFORE DELETE ON catalog_trust_pins BEGIN SELECT RAISE(ABORT,'immutable trust pin'); END;")
+            .map_err(|_| Error::StorageUnavailable)?;
+        persist_trust(&connection, &trust)?;
+        let mut registry = Self::new(trust, capacity);
+        {
+            let mut statement = connection.prepare("SELECT tenant,id,version,envelope,admission_revision FROM candidates ORDER BY tenant,id,version").map_err(|_|Error::StorageUnavailable)?;
+            let rows = statement
+                .query_map([], |row| {
+                    Ok((
+                        row.get::<_, String>(0)?,
+                        row.get::<_, String>(1)?,
+                        row.get::<_, String>(2)?,
+                        row.get::<_, String>(3)?,
+                        row.get::<_, u64>(4)?,
+                    ))
+                })
+                .map_err(|_| Error::StorageUnavailable)?;
+            let mut counts = BTreeMap::<String, usize>::new();
+            for row in rows {
+                let (tenant, id, version, envelope, revision) =
+                    row.map_err(|_| Error::StorageUnavailable)?;
+                let count = counts.entry(tenant.clone()).or_default();
+                *count += 1;
+                if *count > capacity {
+                    return Err(Error::Capacity);
+                }
+                if envelope.len() > 90000 {
+                    return Err(Error::StorageUnavailable);
+                }
+                let parts: Vec<_> = envelope.split('.').collect();
+                if parts.len() != 3 {
+                    return Err(Error::StorageUnavailable);
+                }
+                let payload = decode(parts[1], v::MAX_JSON)?;
+                let manifest = v::canonical(&payload, v::MAX_JSON)?;
+                if manifest["tenant"] != tenant
+                    || manifest["id"] != id
+                    || manifest["version"] != version
+                    || revision > registry.last_revision
+                {
+                    return Err(Error::StorageUnavailable);
+                }
+                // Stored inventory is not authority. Reader::resolve/list reverify signatures,
+                // publisher status, classification and schema references against current trust.
+                let candidate = Candidate {
+                    manifest_digest: v::digest("munarium:manifest:v2", &payload),
+                    artifact_digest: v::digest(
+                        "munarium:manifest-artifact:v2",
+                        envelope.as_bytes(),
+                    ),
+                    manifest,
+                    envelope,
+                    payload,
+                    admission_revision: revision,
+                    verified_revision: 0,
+                };
+                registry.entries.insert((tenant, id, version), candidate);
+            }
+        }
+        registry.durable = Some(Durable {
+            connection,
+            _custody: custody,
+        });
+        Ok(registry)
     }
     /// Host-only trust refresh. None makes all subsequent operations fail closed.
     ///
@@ -376,6 +540,13 @@ impl Registry {
         if let Some(snapshot) = &trust {
             if snapshot.revision <= self.last_revision {
                 return Err(Error::StaleTrust);
+            }
+            #[cfg(feature = "sqlite")]
+            if let Some(durable) = &self.durable
+                && persist_trust(&durable.connection, snapshot).is_err()
+            {
+                self.trust = None;
+                return Err(Error::StorageUnavailable);
             }
             self.last_revision = snapshot.revision;
         }
@@ -449,6 +620,13 @@ impl CandidateIntake for Intake<'_> {
         {
             return Err(Error::Capacity);
         }
+        #[cfg(feature = "sqlite")]
+        if let Some(durable) = &self.registry.durable
+            && durable.connection.execute("INSERT INTO candidates(tenant,id,version,envelope,admission_revision) VALUES(?1,?2,?3,?4,?5)",
+                rusqlite::params![identity.0,identity.1,identity.2,candidate.envelope,candidate.admission_revision]).is_err() {
+                self.registry.trust = None;
+                return Err(Error::StorageUnavailable);
+            }
         self.registry.entries.insert(identity, candidate.clone());
         Ok(candidate)
     }
