@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //! Authenticated inert candidates and a separately authorized activation adapter.
 mod activation_service;
+mod delivery_service;
 #[path = "../vendor/warden-transport/service_transport.rs"]
 mod service_transport;
 use axum::{
@@ -24,6 +25,7 @@ use std::{collections::BTreeMap, path::PathBuf, sync::Arc};
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Config {
+    delivery: Option<delivery_service::Config>,
     tls: TlsConfig,
     server_endpoint: String,
     deployment: String,

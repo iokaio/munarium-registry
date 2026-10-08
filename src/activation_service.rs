@@ -25,6 +25,7 @@ struct Policy {
 #[derive(Deserialize)]
 #[serde(tag = "operation", rename_all = "kebab-case", deny_unknown_fields)]
 enum Operation {
+    Flush,
     Apply { transition: String },
     Lookup { transition_id: String },
     Head,
@@ -115,6 +116,44 @@ async fn admitted(runtime: &Runtime, peer: &Peer, body: &[u8]) -> Result<Value, 
         Operation::Lookup { transition_id } => store
             .lookup(&policy.scope, &transition_id)
             .map_err(catalog_failure),
+        Operation::Flush => {
+            if peer.service != policy.coordinator {
+                return Err(Failure::Refused);
+            }
+            let cfg = runtime
+                .config
+                .delivery
+                .as_ref()
+                .ok_or(Failure::Unavailable)?;
+            let registration = munarium_registry::activation_delivery::registration(
+                &state,
+                &policy.scope,
+                &cfg.server_service,
+                &runtime.config.service,
+                "registry",
+            )
+            .map_err(catalog_failure)?;
+            let now = service_transport::now()?
+                .try_into()
+                .map_err(|_| Failure::Unavailable)?;
+            let event = store
+                .delivery_next(&policy.scope, &registration, now)
+                .map_err(catalog_failure)?;
+            drop(stores);
+            let Some(event) = event else {
+                return Ok(json!({"delivered":0}));
+            };
+            let ack = delivery_service::deliver(runtime, &request.tenant, &event).await?;
+            runtime
+                .activations
+                .lock()
+                .await
+                .get_mut(&request.tenant)
+                .ok_or(Failure::Unavailable)?
+                .delivery_ack(&policy.scope, &event, &ack)
+                .map_err(catalog_failure)?;
+            Ok(json!({"delivered":1,"acknowledgement":ack}))
+        }
         Operation::Head => store.head(&policy.scope).map_err(catalog_failure),
         Operation::Apply { transition } => {
             if peer.service != policy.coordinator || transition.len() > 65536 {

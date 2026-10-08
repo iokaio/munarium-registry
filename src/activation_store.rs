@@ -3,23 +3,24 @@
 use crate::{candidate::Error, validation as v};
 use rusqlite::{Connection, OptionalExtension, TransactionBehavior, params};
 use serde_json::{Value, json};
+mod delivery;
 use std::{collections::BTreeSet, path::Path, sync::LazyLock};
 type Result<T> = std::result::Result<T, Error>;
 fn storage(_: rusqlite::Error) -> Error {
     Error::StorageUnavailable
 }
-fn raw(value: &Value) -> Result<String> {
+pub(crate) fn raw(value: &Value) -> Result<String> {
     let bytes = serde_json::to_vec(value).map_err(|_| Error::InvalidArtifact)?;
     v::canonical(&bytes, v::MAX_JSON)?;
     String::from_utf8(bytes).map_err(|_| Error::InvalidArtifact)
 }
-fn digest(domain: &str, value: &Value) -> Result<String> {
+pub(crate) fn digest(domain: &str, value: &Value) -> Result<String> {
     Ok(v::digest(
         &format!("munarium:stage2:{domain}:v1"),
         raw(value)?.as_bytes(),
     ))
 }
-fn decoded(raw: &str) -> Result<Value> {
+pub(crate) fn decoded(raw: &str) -> Result<Value> {
     v::canonical(raw.as_bytes(), v::MAX_JSON)
 }
 static SCHEMA: LazyLock<Option<jsonschema::Validator>> = LazyLock::new(|| {
@@ -28,7 +29,7 @@ static SCHEMA: LazyLock<Option<jsonschema::Validator>> = LazyLock::new(|| {
     )
     .ok()
 });
-fn shape(value: &Value, kind: &str) -> Result<()> {
+pub(crate) fn shape(value: &Value, kind: &str) -> Result<()> {
     raw(value)?;
     if value["type"] != kind
         || !SCHEMA
@@ -40,7 +41,7 @@ fn shape(value: &Value, kind: &str) -> Result<()> {
     }
     Ok(())
 }
-fn scoped(value: &Value, scope: &Value) -> Result<()> {
+pub(crate) fn scoped(value: &Value, scope: &Value) -> Result<()> {
     match value {
         Value::Object(m) => {
             if m.get("scope").is_some_and(|s| s != scope) {
@@ -119,6 +120,7 @@ impl Store {
           CREATE TABLE IF NOT EXISTS transitions(scope TEXT NOT NULL,id TEXT NOT NULL,digest TEXT NOT NULL,record TEXT NOT NULL,receipt TEXT NOT NULL,PRIMARY KEY(scope,id));
           CREATE TABLE IF NOT EXISTS retired(scope TEXT NOT NULL,digest TEXT NOT NULL,transition_id TEXT NOT NULL,PRIMARY KEY(scope,digest));
           CREATE TABLE IF NOT EXISTS activation_outbox(scope TEXT NOT NULL,id TEXT NOT NULL,record TEXT NOT NULL,receipt TEXT NOT NULL,PRIMARY KEY(scope,id));").map_err(storage)?;
+        db.execute_batch("CREATE TABLE IF NOT EXISTS activation_delivery(scope TEXT NOT NULL,id TEXT NOT NULL,sequence INTEGER NOT NULL,event TEXT NOT NULL,acknowledgement TEXT,PRIMARY KEY(scope,id),UNIQUE(scope,sequence));").map_err(storage)?;
         Ok(Self { db })
     }
     /// Install only the independently enrolled initial head. Reopening cannot replace it.

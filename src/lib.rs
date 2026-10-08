@@ -28,3 +28,7 @@ mod validation;
 #[path = "../vendor/warden-identity/identity-core/lib.rs"]
 mod verifier;
 pub use verifier::{encoding, error, policy, principal};
+
+/// Durable participant event construction and custody validation.
+#[cfg(feature = "sqlite")]
+pub mod activation_delivery;
