@@ -159,3 +159,61 @@ fn explicit_retirement_survives_restart_and_cannot_be_unset_by_a_new_binding() {
     assert_eq!(store.apply(&a, t), Err(Error::UntrustedPublisher));
     assert_eq!(store.head(&a.scope).unwrap()["epoch"], 1);
 }
+
+#[test]
+fn delivery_retries_exact_event_and_rejects_wrong_custody() {
+    let v = vectors();
+    let t = &v["records"]["activation"];
+    let a = auth(&v);
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("delivery.sqlite");
+    let mut db = Store::open(&path).unwrap();
+    init(&mut db, t);
+    db.apply(&a, t).unwrap();
+    let registration = json!({"stream":"activation-delivery","generation":1});
+    let event = db
+        .delivery_next(&a.scope, &registration, 1001)
+        .unwrap()
+        .unwrap();
+    drop(db);
+    let mut db = Store::open(&path).unwrap();
+    assert_eq!(
+        db.delivery_next(&a.scope, &registration, 1099).unwrap(),
+        Some(event.clone())
+    );
+    assert!(
+        db.delivery_next(
+            &a.scope,
+            &json!({"stream":"activation-delivery","generation":2}),
+            1099
+        )
+        .is_err()
+    );
+    let mut ack = vectors()["records"]["ack"].clone();
+    ack["scope"] = a.scope.clone();
+    ack["ledger"]["scope"] = a.scope.clone();
+    ack["event_id"] = event["event_id"].clone();
+    ack["payload_digest"] = event["payload_digest"].clone();
+    ack["event_digest"] = json!(digest("accountability-event", &event));
+    let mut wrong = ack.clone();
+    wrong["position"] = json!(0);
+    assert!(db.delivery_ack(&a.scope, &event, &wrong).is_err());
+    wrong = ack.clone();
+    wrong["event_id"] = json!("wrong");
+    assert!(db.delivery_ack(&a.scope, &event, &wrong).is_err());
+    wrong = ack.clone();
+    wrong["ledger"]["scope"]["tenant"] = json!("foreign");
+    assert!(db.delivery_ack(&a.scope, &event, &wrong).is_err());
+    assert_eq!(
+        db.delivery_next(&a.scope, &registration, 1100).unwrap(),
+        Some(event.clone())
+    );
+    db.delivery_ack(&a.scope, &event, &ack).unwrap();
+    db.delivery_ack(&a.scope, &event, &ack).unwrap();
+    assert!(
+        db.delivery_next(&a.scope, &registration, 1101)
+            .unwrap()
+            .is_none()
+    );
+    assert!(!db.pending(&a.scope).unwrap().is_empty());
+}
