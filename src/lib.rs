@@ -17,6 +17,8 @@
 #![deny(missing_docs)]
 
 pub mod activation;
+#[cfg(feature = "sqlite")]
+pub mod activation_store;
 pub mod candidate;
 pub mod catalog;
 pub mod identity;

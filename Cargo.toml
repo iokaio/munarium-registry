@@ -21,6 +21,7 @@ tokio = { version = "=1.53.1", features = ["rt-multi-thread", "macros", "net", "
 tokio-rustls = { version = "=0.26.4", default-features = false, features = ["ring", "tls12"] }
 rustls-pemfile = "=2.2.0"
 sha2 = "=0.10.9"
+jsonschema = { version = "=0.26.2", default-features = false }
 rusqlite = { version = "=0.37.0", features = ["bundled"], optional = true }
 
 [features]

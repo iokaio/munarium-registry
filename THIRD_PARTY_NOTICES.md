@@ -15,17 +15,26 @@ inventory, not a vulnerability audit. Preserve upstream license and notice files
 The table includes optional/target-specific lock entries, not a claim that all are linked.
 Existing attribution in the repository's governance documents remains applicable.
 
+Stage 2 adds JSON Schema validation and the unchanged Apache-2.0 hub candidate.
+
 | Package | Version | Declared license | Upstream |
 |---|---|---|---|
+| ahash | 0.8.12 | MIT OR Apache-2.0 | [source](https://github.com/tkaitchuck/ahash) |
+| aho-corasick | 1.1.5 | Unlicense OR MIT | [source](https://github.com/BurntSushi/aho-corasick) |
 | atomic-waker | 1.1.2 | Apache-2.0 OR MIT | [source](https://github.com/smol-rs/atomic-waker) |
+| autocfg | 1.5.1 | Apache-2.0 OR MIT | [source](https://github.com/cuviper/autocfg) |
 | axum | 0.8.9 | MIT | [source](https://github.com/tokio-rs/axum) |
 | axum-core | 0.5.6 | MIT | [source](https://github.com/tokio-rs/axum) |
 | base64 | 0.22.1 | MIT OR Apache-2.0 | [source](https://github.com/marshallpierce/rust-base64) |
 | base64 | 0.23.1 | MIT OR Apache-2.0 | [source](https://github.com/marshallpierce/rust-base64) |
 | base64ct | 1.8.3 | Apache-2.0 OR MIT | [source](https://github.com/RustCrypto/formats) |
+| bit-set | 0.8.0 | Apache-2.0 OR MIT | [source](https://github.com/contain-rs/bit-set) |
+| bit-vec | 0.8.0 | Apache-2.0 OR MIT | [source](https://github.com/contain-rs/bit-vec) |
 | bitflags | 2.13.2 | MIT OR Apache-2.0 | [source](https://github.com/bitflags/bitflags) |
 | block-buffer | 0.10.4 | MIT OR Apache-2.0 | [source](https://github.com/RustCrypto/utils) |
+| borrow-or-share | 0.2.4 | MIT-0 | [source](https://github.com/yescallop/borrow-or-share) |
 | bumpalo | 3.20.3 | MIT OR Apache-2.0 | [source](https://github.com/fitzgen/bumpalo) |
+| bytecount | 0.6.9 | Apache-2.0/MIT | [source](https://github.com/llogiq/bytecount) |
 | bytes | 1.12.1 | MIT | [source](https://github.com/tokio-rs/bytes) |
 | cc | 1.6.0 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/cc-rs) |
 | cfg-if | 1.0.5 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/cfg-if) |
@@ -42,20 +51,25 @@ Existing attribution in the repository's governance documents remains applicable
 | displaydoc | 0.2.7 | MIT OR Apache-2.0 | [source](https://github.com/yaahc/displaydoc) |
 | ed25519 | 2.2.3 | Apache-2.0 OR MIT | [source](https://github.com/RustCrypto/signatures/tree/master/ed25519) |
 | ed25519-dalek | 2.2.0 | BSD-3-Clause | [source](https://github.com/dalek-cryptography/curve25519-dalek/tree/main/ed25519-dalek) |
+| email_address | 0.2.9 | MIT | [source](https://github.com/johnstonskj/rust-email_address.git) |
 | errno | 0.3.14 | MIT OR Apache-2.0 | [source](https://github.com/lambda-fairy/rust-errno) |
 | fallible-iterator | 0.3.0 | MIT/Apache-2.0 | [source](https://github.com/sfackler/rust-fallible-iterator) |
 | fallible-streaming-iterator | 0.1.9 | MIT/Apache-2.0 | [source](https://github.com/sfackler/fallible-streaming-iterator) |
+| fancy-regex | 0.14.0 | MIT | [source](https://github.com/fancy-regex/fancy-regex) |
 | fastrand | 2.5.0 | Apache-2.0 OR MIT | [source](https://github.com/smol-rs/fastrand) |
 | fiat-crypto | 0.2.9 | MIT OR Apache-2.0 OR BSD-1-Clause | [source](https://github.com/mit-plv/fiat-crypto) |
 | find-msvc-tools | 0.1.14 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/cc-rs) |
+| fluent-uri | 0.3.2 | MIT | [source](https://github.com/yescallop/fluent-uri-rs) |
 | foldhash | 0.1.5 | Zlib | [source](https://github.com/orlp/foldhash) |
 | form_urlencoded | 1.2.2 | MIT OR Apache-2.0 | [source](https://github.com/servo/rust-url) |
+| fraction | 0.15.4 | MIT OR Apache-2.0 | [source](https://github.com/dnsl48/fraction.git) |
 | futures-channel | 0.3.34 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/futures-rs) |
 | futures-core | 0.3.34 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/futures-rs) |
 | futures-task | 0.3.34 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/futures-rs) |
 | futures-util | 0.3.34 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/futures-rs) |
 | generic-array | 0.14.7 | MIT | [source](https://github.com/fizyk20/generic-array.git) |
 | getrandom | 0.2.17 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/getrandom) |
+| getrandom | 0.3.4 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/getrandom) |
 | getrandom | 0.4.3 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/getrandom) |
 | hashbrown | 0.15.5 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/hashbrown) |
 | hashlink | 0.10.0 | MIT OR Apache-2.0 | [source](https://github.com/kyren/hashlink) |
@@ -79,7 +93,9 @@ Existing attribution in the repository's governance documents remains applicable
 | ipnet | 2.12.2 | MIT OR Apache-2.0 | [source](https://github.com/krisprice/ipnet) |
 | itoa | 1.0.18 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/itoa) |
 | js-sys | 0.3.106 | MIT OR Apache-2.0 | [source](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/js-sys) |
-| libc | 0.2.189 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/libc) |
+| jsonschema | 0.26.2 | MIT | [source](https://github.com/Stranger6667/jsonschema) |
+| lazy_static | 1.5.1 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang-nursery/lazy-static.rs) |
+| libc | 0.2.190 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/libc) |
 | libsqlite3-sys | 0.35.0 | MIT | [source](https://github.com/rusqlite/rusqlite) |
 | linux-raw-sys | 0.12.1 | Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT | [source](https://github.com/sunfishcode/linux-raw-sys) |
 | litemap | 0.8.3 | Unicode-3.0 | [source](https://github.com/unicode-org/icu4x) |
@@ -89,7 +105,16 @@ Existing attribution in the repository's governance documents remains applicable
 | memchr | 2.8.3 | Unlicense OR MIT | [source](https://github.com/BurntSushi/memchr) |
 | mime | 0.3.17 | MIT OR Apache-2.0 | [source](https://github.com/hyperium/mime) |
 | mio | 1.2.4 | MIT | [source](https://github.com/tokio-rs/mio) |
+| num | 0.4.3 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num) |
+| num-bigint | 0.4.8 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num-bigint) |
+| num-cmp | 0.1.0 | MIT/Apache-2.0 | [source](https://github.com/lifthrasiir/num-cmp) |
+| num-complex | 0.4.6 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num-complex) |
+| num-integer | 0.1.47 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num-integer) |
+| num-iter | 0.1.46 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num-iter) |
+| num-rational | 0.4.2 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num-rational) |
+| num-traits | 0.2.19 | MIT OR Apache-2.0 | [source](https://github.com/rust-num/num-traits) |
 | once_cell | 1.21.4 | MIT OR Apache-2.0 | [source](https://github.com/matklad/once_cell) |
+| outref | 0.5.2 | MIT | [source](https://github.com/Nugine/outref) |
 | percent-encoding | 2.3.2 | MIT OR Apache-2.0 | [source](https://github.com/servo/rust-url/) |
 | pin-project-lite | 0.2.17 | Apache-2.0 OR MIT | [source](https://github.com/taiki-e/pin-project-lite) |
 | pkcs8 | 0.10.2 | Apache-2.0 OR MIT | [source](https://github.com/RustCrypto/formats/tree/master/pkcs8) |
@@ -100,11 +125,17 @@ Existing attribution in the repository's governance documents remains applicable
 | quinn-proto | 0.11.19 | MIT OR Apache-2.0 | [source](https://github.com/quinn-rs/quinn) |
 | quinn-udp | 0.5.16 | MIT OR Apache-2.0 | [source](https://github.com/quinn-rs/quinn) |
 | quote | 1.0.47 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/quote) |
+| r-efi | 5.3.0 | MIT OR Apache-2.0 OR LGPL-2.1-or-later | [source](https://github.com/r-efi/r-efi) |
 | r-efi | 6.0.0 | MIT OR Apache-2.0 OR LGPL-2.1-or-later | [source](https://github.com/r-efi/r-efi) |
 | rand | 0.10.3 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/rand) |
 | rand_core | 0.10.1 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/rand_core) |
 | rand_core | 0.6.4 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/rand) |
 | rand_pcg | 0.10.2 | MIT OR Apache-2.0 | [source](https://github.com/rust-random/rngs) |
+| ref-cast | 1.0.26 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/ref-cast) |
+| ref-cast-impl | 1.0.26 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/ref-cast) |
+| referencing | 0.26.2 | MIT | [source](https://github.com/Stranger6667/jsonschema) |
+| regex-automata | 0.4.18 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/regex) |
+| regex-syntax | 0.8.11 | MIT OR Apache-2.0 | [source](https://github.com/rust-lang/regex) |
 | reqwest | 0.12.28 | MIT OR Apache-2.0 | [source](https://github.com/seanmonstar/reqwest) |
 | ring | 0.17.14 | Apache-2.0 AND ISC | [source](https://github.com/briansmith/ring) |
 | rusqlite | 0.37.0 | MIT | [source](https://github.com/rusqlite/rusqlite) |
@@ -117,7 +148,7 @@ Existing attribution in the repository's governance documents remains applicable
 | rustls-webpki | 0.103.15 | ISC | [source](https://github.com/rustls/webpki) |
 | rustversion | 1.0.23 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/rustversion) |
 | ryu | 1.0.23 | Apache-2.0 OR BSL-1.0 | [source](https://github.com/dtolnay/ryu) |
-| semver | 1.0.27 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/semver) |
+| semver | 1.0.28 | MIT OR Apache-2.0 | [source](https://github.com/dtolnay/semver) |
 | serde | 1.0.228 | MIT OR Apache-2.0 | [source](https://github.com/serde-rs/serde) |
 | serde_core | 1.0.228 | MIT OR Apache-2.0 | [source](https://github.com/serde-rs/serde) |
 | serde_derive | 1.0.228 | MIT OR Apache-2.0 | [source](https://github.com/serde-rs/serde) |
@@ -158,10 +189,14 @@ Existing attribution in the repository's governance documents remains applicable
 | untrusted | 0.9.0 | ISC | [source](https://github.com/briansmith/untrusted) |
 | url | 2.5.8 | MIT OR Apache-2.0 | [source](https://github.com/servo/rust-url) |
 | utf8_iter | 1.0.4 | Apache-2.0 OR MIT | [source](https://github.com/hsivonen/utf8_iter) |
+| uuid | 1.26.0 | Apache-2.0 OR MIT | [source](https://github.com/uuid-rs/uuid) |
+| uuid-simd | 0.8.0 | MIT | [source](https://github.com/Nugine/simd) |
 | vcpkg | 0.2.15 | MIT/Apache-2.0 | [source](https://github.com/mcgoo/vcpkg-rs) |
 | version_check | 0.9.5 | MIT/Apache-2.0 | [source](https://github.com/SergioBenitez/version_check) |
+| vsimd | 0.8.0 | MIT | [source](https://github.com/Nugine/simd) |
 | want | 0.3.2 | MIT | [source](https://github.com/seanmonstar/want) |
 | wasi | 0.11.1+wasi-snapshot-preview1 | Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT | [source](https://github.com/bytecodealliance/wasi) |
+| wasip2 | 1.0.4+wasi-0.2.12 | Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT | [source](https://github.com/bytecodealliance/wasi-rs) |
 | wasm-bindgen | 0.2.129 | MIT OR Apache-2.0 | [source](https://github.com/wasm-bindgen/wasm-bindgen) |
 | wasm-bindgen-futures | 0.4.79 | MIT OR Apache-2.0 | [source](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/futures) |
 | wasm-bindgen-macro | 0.2.129 | MIT OR Apache-2.0 | [source](https://github.com/wasm-bindgen/wasm-bindgen/tree/master/crates/macro) |
@@ -182,9 +217,12 @@ Existing attribution in the repository's governance documents remains applicable
 | windows_x86_64_gnu | 0.52.6 | MIT OR Apache-2.0 | [source](https://github.com/microsoft/windows-rs) |
 | windows_x86_64_gnullvm | 0.52.6 | MIT OR Apache-2.0 | [source](https://github.com/microsoft/windows-rs) |
 | windows_x86_64_msvc | 0.52.6 | MIT OR Apache-2.0 | [source](https://github.com/microsoft/windows-rs) |
+| wit-bindgen | 0.57.1 | Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT | [source](https://github.com/bytecodealliance/wit-bindgen) |
 | writeable | 0.6.4 | Unicode-3.0 | [source](https://github.com/unicode-org/icu4x) |
 | yoke | 0.8.3 | Unicode-3.0 | [source](https://github.com/unicode-org/icu4x) |
 | yoke-derive | 0.8.4 | Unicode-3.0 | [source](https://github.com/unicode-org/icu4x) |
+| zerocopy | 0.8.56 | BSD-2-Clause OR Apache-2.0 OR MIT | [source](https://github.com/google/zerocopy) |
+| zerocopy-derive | 0.8.56 | BSD-2-Clause OR Apache-2.0 OR MIT | [source](https://github.com/google/zerocopy) |
 | zerofrom | 0.1.8 | Unicode-3.0 | [source](https://github.com/unicode-org/icu4x) |
 | zerofrom-derive | 0.1.8 | Unicode-3.0 | [source](https://github.com/unicode-org/icu4x) |
 | zeroize | 1.9.0 | Apache-2.0 OR MIT | [source](https://github.com/RustCrypto/utils) |

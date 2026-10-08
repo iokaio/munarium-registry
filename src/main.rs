@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-//! Authenticated candidate intake and resolution. No activation route exists.
+//! Authenticated inert candidates and a separately authorized activation adapter.
+mod activation_service;
 #[path = "../vendor/warden-transport/service_transport.rs"]
 mod service_transport;
 use axum::{
@@ -29,6 +30,8 @@ struct Config {
     service: String,
     database_directory: PathBuf,
     capacity: usize,
+    council_endpoint: Option<String>,
+    gate_endpoint: Option<String>,
 }
 struct Catalog {
     registry: Registry,
@@ -39,6 +42,7 @@ struct Runtime {
     client: reqwest::Client,
     catalogs: tokio::sync::Mutex<BTreeMap<String, Catalog>>,
     permits: tokio::sync::Semaphore,
+    activations: tokio::sync::Mutex<BTreeMap<String, munarium_registry::activation_store::Store>>,
 }
 fn catalog_failure(error: munarium_registry::candidate::Error) -> Failure {
     match error {
@@ -198,9 +202,11 @@ async fn run() -> Result<(), Failure> {
         client,
         catalogs: tokio::sync::Mutex::new(BTreeMap::new()),
         permits: tokio::sync::Semaphore::new(32),
+        activations: tokio::sync::Mutex::new(BTreeMap::new()),
     });
     let router = Router::new()
         .route("/v1/candidates", post(operate))
+        .route("/v1/activation", post(activation_service::operate))
         .layer(DefaultBodyLimit::max(131072))
         .with_state(runtime);
     axum::serve(

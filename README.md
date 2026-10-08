@@ -6,7 +6,7 @@ artifact that describes what a tool is allowed to do is the artifact Munarium Ga
 decides whether a proposed action may proceed. Discovered is not approved, published is not
 activated, and an immutable manifest is not permanently authorized.
 
-> **Status: Stage 1 candidate service implemented.** The authenticated service/client
+> **Status: Stage 1 candidate service and experimental Stage 2 activation.** The authenticated service/client
 > profile is implemented and covered by component and separate-process tests.
 > See the [service profile](docs/service-profile.md). Candidates remain inactive;
 > no execution endpoint is mounted. Human acceptance and production qualification
@@ -131,7 +131,9 @@ at **repository created**.
 Formally accepted contract versions: **none**. Implementation input:
 [unreleased Registry v2 candidate](contracts/README.md). Supported deployment profiles: **none**.
 Local library operations: validate/submit an inert candidate, resolve exact bytes, list a
-tenant's candidates and refresh host-provided trust. No effective catalog or activation exists.
+tenant's candidates and refresh host-provided trust. The separate
+[Stage 2 activation adapter](docs/activation-profile.md) adds authorized participant
+state; full cell activation and effect qualification remain pending.
 
 ## Acceptance evidence for the first release
 
@@ -240,7 +242,7 @@ cargo doc --offline --locked --no-deps
 
 The tests cover fixed signed fixtures, byte identity, tenant isolation and current-trust
 refusals. [Validation](docs/validation.md) and the [REG-01 record](docs/reg-01-implementation.md)
-distinguish local component evidence from unimplemented activation and platform integration.
+distinguish local component evidence from the remaining platform integration and qualification.
 
 Also run the existing hygiene gates:
 
